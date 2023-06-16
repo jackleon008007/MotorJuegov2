@@ -115,6 +115,16 @@ void MainGame::initLevel() {
 			randPosY(randomEngine) * TILE_WIDTH);
 		humans.back()->init(1.0f, pos);
 	}
+	///
+	for (size_t i = 0; i < 50; i++) {
+		zombies.push_back(new Zombie());
+		glm::vec2 posZ(randPosX(randomEngine) * TILE_WIDTH,
+			randPosY(randomEngine) * TILE_WIDTH);
+		zombies.back()->init(1.0f, posZ);
+	}
+	///
+	
+
 
 }
 
@@ -136,6 +146,13 @@ void MainGame::draw() {
 	{
 		humans[i]->draw(spriteBatch);
 	}
+	///
+	for (size_t i = 0; i < zombies.size(); i++)
+	{
+		zombies[i]->draw(spriteBatch);
+	}
+	////
+
 	spriteBatch.end();
 	spriteBatch.renderBatch();
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -154,6 +171,12 @@ void MainGame::updateElements() {
 	{
 		humans[i]->update(levels[currentLevel]->getLevelData(),humans,zombies);
 	}
+	///
+	for (size_t i = 0; i < zombies.size(); i++)
+	{
+		zombies[i]->update(levels[currentLevel]->getLevelData(), humans, zombies);
+	}
+	///
 }
 
 void MainGame::update() {
